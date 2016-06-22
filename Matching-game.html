@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang= "en">
+<head>
+<meta charset="ISO-8859-1">
+<meta name="author" content="A S M Sarwar Zahan">
+<title>Smile Face Matching</title>
+<style>
+	img {position:absolute;}
+	div {
+		position:absolute;
+		width:500px; height:500px
+	}
+	#rightSide { left: 500px; 
+            border-left: 1px solid black }
+</style>
+<script>
+	//initial number of face is 5
+	var numberOfFaces=5;
+	
+	function generateFaces(){
+		//leftSide div
+		var theLeftSide = document.getElementById("leftSide");
+		//rightSide div
+		var theRightSide = document.getElementById("rightSide"); 
+		//Generate LeftSide images
+		for(i=0;i<numberOfFaces;i++){
+			var img = document.createElement("IMG");
+			img.src="http://home.cse.ust.hk/~rossiter/mooc/matching_game/smile.png";
+			img.style.top=Math.floor(Math.random()*400)+"px";
+			img.style.left=Math.floor(Math.random()*400)+"px";
+			theLeftSide.appendChild(img);
+		}
+		//Clone leftside div
+		var leftSideImages = theLeftSide.cloneNode(true);
+		//remove the last face on cloned div
+		leftSideImages.lastChild.remove();
+		//added cloned div to right side div
+		theRightSide.appendChild(leftSideImages);
+		
+		//function handle event that player click on a face
+		theLeftSide.lastChild.onclick=
+		    function nextLevel(event){
+				theLeftSide.lastChild.remove();
+		        event.stopPropagation();
+		        numberOfFaces += 5;
+		        generateFaces();
+		};
+		var theBody =
+			 document.getElementsByTagName("body")[0]; 		
+		//function handle the event when player click on wrong face or position
+		theBody.onclick = function gameOver() {
+		    alert("Game Over!");
+		    theBody.onclick = null;
+		    theLeftSide.lastChild.onclick = null;
+		    location.reload();
+		}; 		
+	}	
+	
+</script>
+</head>
+<body onload="generateFaces()">
+<h1>Matching Game</h1>
+<p>Click on the extra smiling face on the left.</p>
+ <div id="leftSide"></div>
+
+ <div id="rightSide"></div>
+
+</body>
+</html>
