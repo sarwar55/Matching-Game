@@ -1,5 +1,5 @@
 # Matching-Game
-Download the html file and open in google chrome. 
+Download the .html file and open in google chrome. 
 This game won't work on microsoft edge browser.
 
 This is fun matching using HTML and JavaScript. 
